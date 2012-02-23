@@ -1,0 +1,19 @@
+﻿Build started 23/02/2012 15:54:41.
+     1>Project "C:\Users\lolitarx\Documents\Visual Studio 2010\Projects\license_plate_client\license_plate_client\license_plate_client.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\license_plate_client.unsuccessfulbuild".
+       ClCompile:
+         All outputs are up-to-date.
+       ResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         license_plate_client.vcxproj -> C:\Users\lolitarx\Documents\Visual Studio 2010\Projects\license_plate_client\Debug\license_plate_client.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\license_plate_client.unsuccessfulbuild".
+         Touching "Debug\license_plate_client.lastbuildstate".
+     1>Done Building Project "C:\Users\lolitarx\Documents\Visual Studio 2010\Projects\license_plate_client\license_plate_client\license_plate_client.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.08
