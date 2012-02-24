@@ -52,53 +52,89 @@ void		Server::start()
 
 DWORD Server::ClientThread(SOCKET soc, int id)
 {
-	std::string								auth;
-	bool									isAuth = false;
 	std::map<int, clientInfos*>::iterator	it;
 	clientInfos								*ci;
+	DWORD									header;
 
+	header = 0;
 	EnterCriticalSection(&this->cs);
 	it = Server::clientsMap.find(id);
 	ci = it->second;
 	LeaveCriticalSection(&this->cs);
 
-	while (isAuth == false)
+	while (header != QUIT_SERVER)
 	{
-		auth = this->receiveLine(soc);
-		isAuth = this->checkAuth(auth);
-		if (isAuth == false)
-			send(soc, "ko\n", 3, 0);
+		header = 0;
+		recv(soc, reinterpret_cast<char *>(&header), sizeof(DWORD), 0);
+		switch(header)
+		{
+			case CHECK_AUTH:
+				this->checkAuth(soc, ci);
+				break;
+			case SEND_PICTURE:
+				this->receivePicture(soc);
+				break;
+		}
 	}
-	send(soc, "ok\n", 3, 0);
-	ci->isAuth = true;
-	
-		DWORD filesize;
-		std::string	res;
-		recv(soc, reinterpret_cast<char *>(&filesize), sizeof(DWORD), 0);
 
-		char *data = new char[filesize + 1];
+	return (0);
+}
+
+void		Server::receivePicture(SOCKET soc)
+{
+	DWORD	filesize;
+
+	filesize = 0;
+	recv(soc, reinterpret_cast<char *>(&filesize), sizeof(DWORD), 0);
+	/*char *data = new char[filesize + 1];
 		
 		int nb = recv(soc, data, filesize + 1, 0);
 		FILE*	picture;
 		picture = fopen("builder.jpg", "wb");
 		fwrite(data, filesize, 1, picture);
 		fclose(picture);
+		*/
+		FILE *fw = fopen("builder.jpg", "wb");
+		while (filesize > 0)
+		{
+			char buffer[1024];
 
-	return (0);
+			if (filesize >= 1024)
+			{
+				recv(soc, buffer, 1024, 0);
+				fwrite(buffer, 1024, 1, fw);
+			}
+			else
+			{
+				recv(soc, buffer, filesize, 0 );
+				buffer[filesize] = '\0';
+				fwrite(buffer, filesize, 1, fw);
+			}
+			filesize -= 1024;
+		}
+		fclose(fw);
 }
 
-bool		Server::checkAuth(std::string auth)
+void		Server::checkAuth(SOCKET soc, clientInfos *ci)
 {
 	bool		isAuth = false;
 	size_t		found;
+	std::string	auth;
 	std::string	username;
 	std::string	password;
 
-	found = auth.find_first_of("|");
-	username = auth.substr(0, found);
-	password = auth.substr((found + 1), (auth.size() - 1));
-	isAuth = this->checkInXml(username, password);
-	return (isAuth);
+	while (isAuth == false)
+	{
+		auth = this->receiveLine(soc);
+		found = auth.find_first_of("|");
+		username = auth.substr(0, found);
+		password = auth.substr((found + 1), (auth.size() - 1));
+		isAuth = this->checkInXml(username, password);
+		if (isAuth == false)
+			send(soc, "ko\n", 3, 0);
+	}
+	send(soc, "ok\n", 3, 0);
+	ci->isAuth = true;
 }
 
 bool		Server::checkInXml(std::string username, std::string password)

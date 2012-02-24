@@ -9,6 +9,10 @@
 class Server;
 class clientInfos;
 
+#define QUIT_SERVER 1
+#define SEND_PICTURE 2
+#define CHECK_AUTH 3
+
 struct thread_param
 {
        Server*	ser;
@@ -25,7 +29,8 @@ public:
 	~Server();
 	void							start();
 	std::string						receiveLine(SOCKET);
-	bool							checkAuth(std::string);
+	void							receivePicture(SOCKET);
+	void							checkAuth(SOCKET, clientInfos*);
 	bool							checkInXml(std::string, std::string);
 	std::map<int, clientInfos*>		clientsMap;
 	CRITICAL_SECTION				cs; 
