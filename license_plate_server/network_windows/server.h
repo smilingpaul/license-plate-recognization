@@ -32,6 +32,7 @@ public:
 	void							receivePicture(SOCKET);
 	void							checkAuth(SOCKET, clientInfos*);
 	bool							checkInXml(std::string, std::string);
+	int								pictureId;
 	std::map<int, clientInfos*>		clientsMap;
 	CRITICAL_SECTION				cs; 
 	static DWORD WINAPI				ThreadLauncher(void *p)

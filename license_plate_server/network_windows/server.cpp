@@ -16,7 +16,7 @@ using namespace xercesc;
 
 Server::Server()
 {
-
+	this->pictureId = 1;
 }
 
 Server::~Server()
@@ -82,37 +82,37 @@ DWORD Server::ClientThread(SOCKET soc, int id)
 
 void		Server::receivePicture(SOCKET soc)
 {
-	DWORD	filesize;
-
+	int	filesize;
 	filesize = 0;
-	recv(soc, reinterpret_cast<char *>(&filesize), sizeof(DWORD), 0);
-	/*char *data = new char[filesize + 1];
-		
-		int nb = recv(soc, data, filesize + 1, 0);
-		FILE*	picture;
-		picture = fopen("builder.jpg", "wb");
-		fwrite(data, filesize, 1, picture);
-		fclose(picture);
-		*/
-		FILE *fw = fopen("builder.jpg", "wb");
-		while (filesize > 0)
-		{
-			char buffer[1024];
+	char	*id = new char[1024];
+	std::string	pictureName;
 
-			if (filesize >= 1024)
-			{
-				recv(soc, buffer, 1024, 0);
-				fwrite(buffer, 1024, 1, fw);
-			}
-			else
-			{
-				recv(soc, buffer, filesize, 0 );
-				buffer[filesize] = '\0';
-				fwrite(buffer, filesize, 1, fw);
-			}
-			filesize -= 1024;
+	itoa(this->pictureId, id, 10);
+	pictureName = id;
+	pictureName += ".jpg";
+	this->pictureId++;
+	FILE *fw = fopen(pictureName.c_str(), "wb");
+	int	nb_write = 0;
+
+	recv(soc, reinterpret_cast<char *>(&filesize), sizeof(int), 0);
+
+	while (filesize > 0)
+	{
+		char buffer[1024];
+
+		if (filesize >= 1024)
+		{
+			recv(soc, buffer, 1024, 0);
+			nb_write += fwrite(buffer, 1024, 1, fw);
 		}
-		fclose(fw);
+		else
+		{
+			recv(soc, buffer, filesize, 0 );
+			nb_write += fwrite(buffer, filesize, 1, fw);
+		}
+		filesize -= 1024;
+	}
+	fclose(fw);
 }
 
 void		Server::checkAuth(SOCKET soc, clientInfos *ci)
