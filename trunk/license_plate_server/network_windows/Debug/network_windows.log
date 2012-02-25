@@ -1,21 +1,12 @@
-﻿Build started 24/02/2012 02:25:34.
+﻿Build started 24/02/2012 19:24:22.
      1>Project "C:\Users\lolitarx\Desktop\license-plate-recognization\license_plate_server\network_windows\network_windows.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\license_plate_server.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\license_plate_server.unsuccessfulbuild".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt server.cpp
-         server.cpp
-     1>c:\users\lolitarx\desktop\license-plate-recognization\license_plate_server\network_windows\server.cpp(97): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+         All outputs are up-to-date.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lolitarx\Desktop\license-plate-recognization\license_plate_server\Debug\license_plate_server.exe" /NOLOGO ws2_32.lib "xerces-c_3D.lib" "xerces-c_static_3D.lib" Mswsock.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\license_plate_server.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\lolitarx\Desktop\license-plate-recognization\license_plate_server\Debug\license_plate_server.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lolitarx\Desktop\license-plate-recognization\license_plate_server\Debug\license_plate_server.lib" /MACHINE:X86 Debug\clientInfos.obj
-         Debug\main.obj
-         Debug\network.obj
-         Debug\server.obj
-         LINK : C:\Users\lolitarx\Desktop\license-plate-recognization\license_plate_server\Debug\license_plate_server.exe not found or not built by the last incremental link; performing full link
+         All outputs are up-to-date.
          network_windows.vcxproj -> C:\Users\lolitarx\Desktop\license-plate-recognization\license_plate_server\Debug\license_plate_server.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\lolitarx\Desktop\license-plate-recognization\license_plate_server\Debug\license_plate_server.exe;#1" /manifest Debug\license_plate_server.exe.intermediate.manifest
        FinalizeBuildStatus:
          Deleting file "Debug\license_plate_server.unsuccessfulbuild".
          Touching "Debug\license_plate_server.lastbuildstate".
@@ -23,4 +14,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.90
+Time Elapsed 00:00:00.08
